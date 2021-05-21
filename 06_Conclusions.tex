@@ -1,0 +1,15 @@
+\section{Conclusion and Future Work}\label{sec:conclusion}
+
+Residential distribution systems are a potential source of system flexibility. This potential can be realized by an approach called transactive systems (TS) that coordinates residential devices through a market-based mechanism.
+In this work, we present TESS, a platform to design, deploy, and operate transactive energy systems in electric retail environments. TESS enables the dispatch of devices according to their physical state, customer preferences, and local and time-specific supply cost. 
+Existing systems have been designed as closed control system. In contrast, we envision TESS to be a starting point for an open smart grid platform: the modularized structure will be able to incorporate multiple DER, enable third party access such as competing load aggregators, and provide the utility with the means for efficient and resilient operations of a system with increasing shares of variable renewable energy.
+
+Furthermore, we describe TESS as we have specified it for a field implementation within the service territory of Holy Cross Energy in Colorado.
+Previous implementations of TS have worked with experimental tariffs or side-payments to ensure participation and we identify such an approach as an existing hurdle to wide-scale deployment of TS. 
+Instead, explicitly incorporating existing conditions such as a (non-transactive) tariff system can remove regulatory hurdles, build up trust with customers and utilities, and gain operational experience for the improvement of the system. 
+In our field deployment, we designed our bidding approach to consider explicitly the economic incentives with regard to existing fixed retail rates and net-metering, and proposed the coordination of DER by TESS as an alternative design of the existing Distribution Flexibility Program (DFP), with bill credits being determined through the TS. 
+Furthermore, we suggested the use of tokens to take into account the fact that, in today's system of long-term procurement contracts, the marginal cost of supply sometimes only becomes clear \textit{ex post}.
+While these modifications might come at efficiency loss in the beginning, we hope that the gain in acceptance and experience will outweigh its costs in the long-run.
+
+Future work should support the further modularization of TESS as well as designing modules. This includes, for instance, the design of new bidding functions, forecasting capabilities, market clearing, and billing processes.
+Furthermore, more work should be invested in identifying the challenges of brownfield deployment and conceptualizing how TS can be adjusted to transition from an additional control component for DER to full-scale adoption, replacing existing tariff systems.

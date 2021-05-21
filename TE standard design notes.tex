@@ -1,0 +1,99 @@
+Language to pull in from Chassin (2017) for Section 2
+
+
+This is good language as an OlyPen summary, p. 206: ``In this field demonstration, over a hundred residences, two office buildings, industrial loads and distributed generation resources were provided bidding agents to interact with a retail double-auction on their behalf. Devices were equipped with underfrequency load shedding controls, thermostatic controls, and other end-use controls that interfaced with bid/response controllers. The results showed significant increases in demand response as well as improved coordination of distributed resources. Among the benefits observed, the most significant were a 60\% reduction in short-term peak load and a 15\% reduction in long-term peak load."
+
+
+\textbf{Resource diversity}
+
+But a comprehensive and theoretically sound model for diversity continues to elude load modelers, and this remains an open area of research.
+
+TE 2.0, prices from devices
+\begin{itemize}
+    \item Market-based coordination
+    \item Digitally-enabled devices
+    \item Market platform
+    \item Buyers submit bids
+    \item Sellers submit offers
+    \item Transactions occur, details vary depending on market design/auction design
+    \item Market-clearing price serves as signal for autonomous device control and price-based dispatch; devices algorithmically change settings
+    \item Combination of physical grid reality as a constraint + market coordination of Qs=Qd yields simultaneous physical balance and economic efficiency with minimal user information/respect for data privacy
+    \item Multi-level market integration, from retail to feeder to wholesale
+\end{itemize}
+
+The underlying concept of using a bottom-up approach that respects the physical limitations of the system is basically the same.
+
+hierarchical but decentralized control system where each node of the power grid used local signals of demand and price to match supply with demand at varying frequencies of up to every five minutes or less.
+
+distributed resource allocation strategy that engages both electricity suppliers and consumers using market-based mechanisms at the retail level for the purpose of enabling demand response by the utilities at the wholesale level.
+
+The transactive control systems demonstrated use distribution capacity markets to determine the energy price that minimizes the imbalance between supply and demand for electricity by participating equipment during the next operating interval. The system computes a 5-minute retail real-time price (RTP) that reflects the underlying wholesale locational marginal price (LMP) plus all the other distribution costs and scarcity rents arising from distribution capacity constraints. The real-time price comes under a new tariff designed to be revenue neutral in the absence of demand response.
+
+The proposed paradigm seeks to create an equitable market mechanism for coordinating and controlling all system assets through a distributed, self-organizing control
+paradigm that protects customer choice but encourages and coordinates participation. This is the purpose of the so-called ``transactive" paradigm. Distributed smart grid asset participation in the wholesale market must be coordinated through a hierarchical architecture of nested market mechanisms. This requires the design of retail markets, but leaves the actual functional control at the device level.
+
+At the lowest level devices use price and other information to autonomously determine appropriate actions and apply their own constraints to local control processes. In the Olympic and Columbus demonstrations of this approach HVAC loads responded to changes in normalized prices by adjusting the thermostat set-point utilizing smart thermostat and smart-meter technology, as illustrated in Figure 5. These devices bid the price point for their on/off decision as well their power quantities into a retail market. The price point is a function of the difference between the desired air temperature and the current air temperature and the quantity a function of recent metering. Customers are actively engaged with a simple user interface that allows them to choose how much demand response they provide from a range between ``more comfort" and ``more savings" with a simple slider control. This parameter k allows consumers to determine the level of market participation. They can always override the
+response by either changing the bid response curve or removing the device from the market altogether, provided they are willing to pay potentially higher prices were they to occur. This approach protects customer choice, while continuously rewarding participation.
+
+Design of device-level controls and bidding strategies forms the basis for their participation in retail markets. Equitable treatment of distributed assets in the wholesale markets is accomplished through retail-wholesale market integration.
+
+At the device level, distributed assets should provide multiple services at different time scales: (1) respond to market prices both ahead and real-time, (2) respond to imbalance signals, and (3) respond autonomously to reliability needs inferred from ambient frequency and voltage signals.
+
+Autonomous responses are critical for many reliability purposes where there may not be time to
+communicate needed actions through a wide-area network.
+
+One of the main objectives of this paradigm is to offer a comprehensive framework that fully integrates retail and wholesale power markets. This framework must provide a way for end-users (distributed assets) to contribute indirectly in wholesale markets. Retail market designs must not only facilitate interactions between end-users (distributed assets) and the feeder level management system. The feeder level management system must coordinate the behaviors of the distributed assets within their respective retail markets, as well as consolidate the net offering for area and wholesale markets. This provides an avenue to inject local constraints, which are often overlooked when solving system-wide problems using distributed resources.
+
+Effectively, the system enables customers to reduce their energy consumption during high price events to reduce energy costs, while coordinating device responses during localized congestion events to decrease demand and deploy local resources, providing a system for equitably rewarding customers for participation. Distributed generation and storage similarly bid into the retail market, subject to run time constraints (e.g., a maximum number of allowable
+run hours).
+
+The feedback loop is closed by integrating retail markets through to wholesale energy, capacity and ancillary service markets. This allows distributed assets to interact with the wholesale market through the feeder's retail market and area level management systems. Price and availability information must flow from the device level to the feeder level retail aggregators and markets. Similarly, aggregators combine the supply bids from distributed renewables to form feeder level supply curves. The aggregate net constrained results of the demand and supply are bid to the area level management systems, which combine various feeder level bids in a similar manner to the ISO/RTO's wholesale market. Once the wholesale
+market clears, the cleared prices and quantities are reported back to the area and feeder level markets, which apply their local constraints through appropriate bids to clear their respective markets.
+
+Based on the day-ahead wholesale market LMP, day-ahead feeder bids and other regional resources, the area market determines an area day-ahead price and available capacity of area power and establishes the area's scheduled net load and generation commitment. Thus the area forward market incorporates day-ahead supply bids from renewables and load bids from feeder to determine the day-ahead area price. The real-time feeder markets then clear the local supply and demand to determine the feeder price that meets the area's scheduled loads, storage and distributed generation. Storage devices then charge or discharge depending on the cleared price.
+
+
+
+
+Good language for the conclusion:
+
+Distributed generation, load shifting, curtailment
+and recovery are all induced by variations in real-
+time prices. In doing so, the transactive control sys-
+tem can reduce the exposure of the consumers and
+the utility to price volatility in the wholesale market
+and the costs of congestion on the distribution sys-
+tem [94]. Retail prices are discovered using a feeder
+capacity double auction that can be used to directly
+manage distribution, transmission or bulk genera-
+tion level constraints, if any. Distributed genera-
+tion is dispatched based on consumers' preferences,
+which they enter into an advanced thermostat that
+acts as an automated agent bidding for electricity
+on their behalf. Thermostats both bid for the elec-
+tricity and modulate consumption in response to the
+market clearing price. By integrating this response
+with a price signal that reflects anticipated scarcity
+the system closes the loop on energy consumption
+and can improve resource allocation efficiency by en-
+suring that consumers who value the power most are
+served first. At the same time, consumers provide
+valuable services to the wholesale bulk power sys-
+tem and reduced energy costs at times of day when
+they express preferences for savings over comfort.
+
+p. 214: ``Demand response is becoming a more accepted
+and important option for utilities to mitigate the in-
+termittency of renewable generation resources [76].
+Transactive control is a multi-scale, multi-temporal
+paradigm that can integrate wholesale energy, ca-
+pacity, and regulation markets at the bulk system
+level with distribution operations [77]. Under the
+transactive control paradigm, retail markets for en-
+ergy, capacity, and regulation services are deployed
+to provide a parallel realization of wholesale markets
+at the distribution level. In spite of the conceptual
+similarity, the behavior of retail markets differs sig-
+nificantly from that of wholesale markets and re-
+mains an active area of research [78]."
+

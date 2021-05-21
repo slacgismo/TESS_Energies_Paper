@@ -1,0 +1,70 @@
+\section{Notes}
+
+Outline
+
+\begin{enumerate}
+    \item Purpose, mechanics, and advantages of TS
+    \item But: most TS are brownfield
+    \item In this paper, we describe the conceptualization for a TS at Basalt Vista, HCE
+    \item HCE are subject to the following tariffs
+    \item We discuss how we designed bidding functions for PV (storage and EV) to account for this outside option
+    \item We qualitatively compare the three options of managing DER: HCE+NREL's optimization tool, TS, no management
+    \item We conclude that TS can still provide value in such a brown-field context
+    \item However, DER do not get charged/paid according to their marginal value and efficiency losses are likely (in the long-run)
+\end{enumerate}
+
+case study, HCE as an example to lay out requirements in the field, the challenges we encountered, how do we recommend adapting to that environment
+
+synthesis of engineering and economics modeling and language, importance of human-machine interface as a design question for further study (trust, Wan-Lin)
+
+how to implement, what are the practical challenges (e.g. existing regulatory institutions, net metering, how to nest it in existing tariff structure and physical network management)
+
+implications for market design, use some graphs from final report
+
+practical requirements to consider when implementing PV and TESS
+
+existing net metering tariffs and challenges
+
+
+\begin{enumerate}
+    \item Human-Machine Interface + What us the most important source of trust to interact with technology (Wan-Lin)
+    \item HCE policy setting : what are the (institutional) requirements and conditions? and how do they need to change to integrate TSs?
+\end{enumerate}
+
+old abstract:
+
+Transactive energy systems use market processes and automated device bidding to coordinate supply and demand and provide devices with control signals using price-based dispatch. Such decentralized coordination can facilitate greater interconnection of distributed energy resources as well as providing a platform for valuation of resource flexibility. A transactive system must reflect the value or utility arising from electricity consumption, and thus the definition of device bidding functions is an important component of transactive energy. In this paper we provide a theoretical model of bidding functions using auction theory and mechanism design, and we use that model to analyse the bidding functions created in the Transactive Energy Services System (TESS) field experiment with an electric cooperative in the US. The translation of theory to practice highlights the challenges of incorporating a transactive energy system into an existing operational framework and rate structure.
+
+
+
+From intro (moved by MLA)
+
+% Need for opening up and modularization
+This standard TS design was mostly based on standard double auctions and heuristic bidding functions which signaled dispatch priority. In particular, bids were not necessarily required to be an expression of economic interest as the system was set up as a closed system, operated by the local utility.
+Such a design comes with multiple problems: first, the double auction with fixed market intervals might not be the most suitable choice for systems with a large share of renewable energy which exhibit zero marginal cost and considerable volatility. Second, the closed concept may hinder the continued development of the elements of the TS, such as bidding functions or billing methods, and shut out third parties from offering innovative business models which will be needed in preparing the power system for high shares of renewable energy and high volatility.
+We address these limitations by developing the Transactive Energy Service System (TESS) platform which modularizes TS architectures and allows for a continued development of their essential components, including bidding functions and market clearing mechanisms.
+
+% Problems of field deployment
+Second, because of this real-time coordination of devices and the required communication infrastructure, TS substantially differ from the current approaches to dispatch and bill demand. 
+%In particular, the majority of residential loads is subscribed to fixed retail or time-of-use rates. Customers with photovoltaics (PV) systems are subject to net-metering, i.e. they only pay for their net consumption.
+For that reason, past TS deployments necessarily operated under experimental conditions. Customers were either assigned to an experimental tariff or received side-payments for a separate billing through the TS. These setups therefore disregarded existing tariff schemes as well as regulation (``greenfield'').
+The presence of such tariff schemes like fixed retail tariffs as well as regulation like net-metering (``brownfield''), however, obviously change the design requirements and conditions for TS operations and customers' incentives for participation. 
+Although a TS provides an alternative compensation mechanisms for distributed energy resources (DERs) that could, for example, replace net metering, these existing tariff schemes or regulations are hard to change and often require approval from political bodies or regulatory commissions. 
+Moreover, while some of these tariff components divert customers from efficient economic dispatch, they can serve other socioeconomic objectives or are meant to push technology adoption. It is unclear how such objectives could be pursued under a TS.
+Finally, power systems -- with their technical, economic, and social aspects -- are complex systems. Many of the agents involved, whether customers, utilities, or regulators, are risk-averse. 
+Potentially, the requirement of such a greenfield has hindered broad acceptance and deployment of TS in utilities across the US. Therefore, systematic approaches for brownfield deployment might be necessary to establish the technology, learn about operational challenges, and provide the road to a true ``smart grid''.
+
+
+\citet{sajjadi_transactive_2016} base their bid on the average cost of a kWh generated, including total cost of installation. We do not follow their approach as this number does not capture the effects on individual incentives of the marginal benefit of participating in the TS, nor does it capture additional existing tariff conditions as outside options. In a European context, \citet{ableitner_user_2020} implemented a local electricity market. While owners of solar panels could sell at a guaranteed feed-in-tariff, they find that some would be willing to sell at lower costs. \citet{mengelkamp_decentralizing_2018} automate customers to bid marginal supply costs between the feed-in-tariff and the retail rate.
+
+
+We argue that, for a TS to be beneficial to all parties, economic incentives play a pivotal role. This claim is particularly true in brownfield deployments, where customers are already part of an existing tariff system and have outside options, such as not participating in the TS. While the previous literature including field deployments has demonstrated that transactive systems can realize substantial benefits, they have usually focused on theoretical models or greenfield deployment \citep[p. 12]{abrishambaf_towards_2019}. Considering the whole set of customer incentives may, however, help to realize the benefits of transactive systems in existing systems and address the observation that, despite years of research, transactive systems have not yet been implemented successfully in practice at large scale.
+
+
+
+We implement economic incentives and mutually-beneficial exchange in the TESS design by focusing on \emph{price discovery} -- the process by which producers and consumers interact to reveal not just the accounting cost of operating a supply resource, but also the actual marginal value of consumption, the opportunity costs facing both buyers and sellers, and the value of the alternatives available to them. %{\color{red}ALSO OUTSIDE OPTIONS} 
+The goal of the TESS project is to design, develop, test, and validate retail-level Transactive Energy systems that are dominated by behind-the-meter renewable energy resources and energy storage resources. Our definition differs from the cost-based ``prices to devices'' concept by including demand-side and DER bidding based on willingness to pay -- eliciting ``prices from devices'' to reflect demand-side value more directly in the market-clearing prices used for dispatch.
+
+We proceed as follows: In \cref{sec:background}, we summarize the history of transactive systems and the economic theory underlying our TS design. In \cref{sec:standard_design}, we describe the TESS standard design. Then, in \cref{sec:hce}, we give a description of Holy Cross Energy and the conditions of the TESS field experiment. We follow up with the modifications to our transactive system and discuss the challenges for implementation in \cref{sec:challenges}. We conclude in \cref{sec:conclusion}.
+
+

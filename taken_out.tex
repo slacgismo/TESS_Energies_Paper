@@ -1,0 +1,33 @@
+We are currently implementing and operating a TS in Basalt Vista, a community managed by the cooperative Holy Cross Energy (HCE) in Colorado. At the moment, HCE procures energy at the wholesale level from Xcel Energy, at a fixed rate. Under the terms of that contract, significant cost savings arise for HCE from reducing load during the monthly coincident peak of the system. Customers are subject to a fixed retail tariff and net metering, if they own solar. In the future, Colorado is set to enter the Western energy imbalance markets, which will open up new cost-reducing opportunities for active load management. Furthermore, the increased deployment of renewable energies as well as stability-threatening events like wildfires will require more load management capabilities. These changes will consequently change the value attached to resource flexibility, and to network architectures that can facilitate flexibility and enable HCE to discover the value of flexibility and how it varies over time and location.
+
+In this context, TS can provide valuable means for decentralized and flexible load coordination. Here we describe the cooperative and the distribution system of interest (\cref{sec:HCE_description}), the requirements and limitations for the design of our TS (\cref{sec:HCE_limitations}), and the design we propose (\cref{sec:HCE_design}).
+
+\textcolor{blue}{opportunity cost, outside option, PV bidding function set at its opportunity cost MC=0 means no strategic bidding but also no preference elicitation, some existing programs have baselines, representing preferences, continuing to apply mechanism design ideas as we adapt the design to their situation}
+
+Implementing TESS in a utility setting requires modifications to accommodate the existing tariff and rate structure. In a TS implementation without an existing institutional framework, simply implementing the technology, market design, and bidding functions could be feasible. Even in a simple setting with a single fixed rate tariff, TESS would provide a contractual alternative, so the customer's evaluation of their opportunity costs would be straightforward. The TESS market design would also be more straightforward -- devices would submit their demand bids and supply bids, the utility would submit its supply bid, and market clearing and coordination would proceed as described in \ref{sec:standard_design}.
+
+In HCE's case, customers have a range of rate options if they own DERs, and some of those rates can be combined. Customers who own or are considering investing in DERs remain on the base residential rate, then add on NEM and DFP, and DERSA if they purchase their DERs through HCE.
+
+Doesn't change the essentials of the design, but it does change the definition of what's being traded in the market -- e.g., have to trade differences compared to a baseline
+
+Importantly, our specification addresses challenges of implementing TS in existing electric retail systems, for instance, the design of bidding strategies when a (non-transactive) tariff system is already in place.
+
+Transactive energy synthesizes the technologies and control theory from engineering with the market design and institutional theory from economics into a cyber-physical-social system platform. Digital technologies create the possibility of energy devices changing their settings autonomously in response to prices, and control theory provides a framework for modeling, testing, and understanding the individual and system effects of such capabilities.
+
+TESS provides automated retail market clearing mechanisms and price-based dispatch of behind-the-meter distributed energy resources. 
+
+
+
+Digitally-enabled devices; market-clearing price serves as signal for autonomous device control and price-based dispatch; devices algorithmically change settings
+
+VALUE OF TESS FOR UTILITIES SEEING THREATS TO THEIR EXISTING BUSINESS MODEL -- REVENUE, COST, RESILIENCE. RELEVANT TO IOU, COOP, MUNI. WAY TO MITIGATE IMPACTS OF EMERGING RISKS BY ENABLING MORE AND DEEPER FLEXIBILITY
+
+devices can act autonomously on the preferences and objectives of the people who own or operate them
+
+Despite market design challenges, the combination of environmental policy and falling production costs has driven a proliferation of distributed energy resources in electric power systems. Transactive energy is emerging as a fundamentally new market-based approach to coordinating electric energy delivery in systems with very high levels of DERs. Transactive energy combines technology and engineering with market design and economic principles. Autonomous device response to informative, emergent prices is the hallmark of transactive energy.
+
+
+In particular, the TESS design embodies the economic concept that the transactive process is one of \emph{price discovery} through the mutual dynamic interaction of demand and supply, of value and cost. In that process, agents evaluate their opportunity costs, and in TESS those evaluations will be embodied in the algorithmic bidding functions of different devices. An important aspect of individual opportunity costs is the range of options facing a person making a choice. In the modifications of TESS that we performed to adapt to a brownfield setting, the presence of existing outside options was a crucial factor to incorporate into the modified market design and bidding functions.
+
+
+

@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}%
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[nohead]{geometry}
+\usepackage{pdflscape}
+\usepackage[singlespacing]{setspace}
+\usepackage[bottom]{footmisc}
+\usepackage{indentfirst}
+\usepackage{endnotes}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{threeparttable}
+\usepackage{epsfig}
+\usepackage{longtable} 
+\usepackage{array} % for extrarowheight
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+%\usepackage{subfigure}
+\usepackage{color}
+\usepackage{natbib}
+\usepackage{comment}
+\setlength{\marginparwidth}{2cm}
+\usepackage{todonotes}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{lscape}
+
+\usepackage[capitalise]{cleveref}
+\graphicspath{{images/}}
+\usepackage{subcaption}
+
+\usepackage{url}
+
+\usepackage{float}
+%\usepackage[addedmarkup=uuline]{changes}
+
+\usepackage{caption}
+
+\setcounter{MaxMatrixCols}{30}
+\newtheorem{theorem}{Theorem}
+\newtheorem{fact}{Fact}
+\newtheorem{assumption}{Assumption}
+\newtheorem{acknowledgement}{Acknowledgement}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prediction}{Prediction}
+
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\makeatletter
+\def\@biblabel#1{\hspace*{-\labelsep}}
+\makeatother
+\geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+\begin{document}
+
+\setcounter{page}{0}
+
+
+
+\singlespacing
+
+\title{
+Opening up Transactive Systems: Introducing TESS and Specification in a Field Deployment
+%Brownfield Deployment of Transactive Systems and Implications for Agent Behavior
+\thanks{Corresponding author: lynne@knowledgeproblem.com. 
+%More acknowledgements \textcolor{red}{TKTK}
+} 
+\\ }
+
+\date{\today}
+\author{Marie-Louise Arlt (Ludwig Maximilians University Munich) \\ David P. Chassin (SLAC National Accelerator Laboratory\footnote{SLAC National Accelerator Laboratory is operated by Stanford University for the US Department of Energy under Contract DE-AC02-76SF00515. This work was funded under a grant from the US Department of Energy's Office of Electricity and completed in a collaboration with Holy Cross Energy Electric Cooperative in Glenwood Springs, Colorado and PostRoad Foundation in Oakland, California.} ) \\ Lynne Kiesling (University of Colorado-Denver) \\}  
+\maketitle
+
+\thispagestyle{empty}
+
+\sloppy%
+
+
+\thispagestyle{empty}
+
+
+\singlespacing
+\begin{center}
+\large \textbf{Abstract}
+\end{center}
+
+\noindent 
+%Transactive energy systems (TS) use automated device bidding to access (residential) demand flexibility and coordinate supply and demand on the distribution system level through market processes. In this paper, we describe the economic theory underlying our TS design, Transactive Energy Service System (TESS). Despite positive experiences in various pilot projects, one hurdle in introducing TS is their integration with existing tariff structures and (legal) requirements. We delineate the practical limitations we encountered in the TESS field project in Colorado, in particular the existence of default tariff schemes, net energy metering, and the intertemporal mismatch between real-time transactions and monthly bill settlement. We present our modifications to our standard TESS design and describe how economic theory informed these modification choices. We also discuss the extent to which they affect short-term and long-term efficiency as well as the local utility's budget. We conclude with a general discussion of the ``brownfield'' implementation of TS.
+Transactive energy systems (TS) use automated device bidding to access (residential) demand flexibility and coordinate supply and demand on the distribution system level through market processes. 
+In this work, we present TESS, a modularized platform for the implementation of TS, which enables the deployment of adjusted market mechanisms, economic bidding, and the potential entry of third parties. TESS thereby opens up current integrated closed-system TS, allows for the better adaptation of TS to power systems with high shares of renewable energies, and lays the foundations for a smart grid with a variety of stakeholders.
+Furthermore, despite positive experiences in various pilot projects, one hurdle in introducing TS is their integration with existing tariff structures and (legal) requirements. In this paper, we therefore describe TESS as we have modified it for a field implementation within the service territory of Holy Cross Energy in Colorado. Importantly, our specification addresses challenges of implementing TS in existing electric retail systems, for instance, the design of bidding strategies when a (non-transactive) tariff system is already in place.
+We conclude with a general discussion of the challenges associated with ``brownfield'' implementation of TS, such as incentive problems of baseline approaches or long-term efficiency.
+
+\medskip
+\vspace{0.5cm}
+\noindent \textit{Keywords}: electricity, transactive energy, market-based dispatch, bidding functions, automated bidding
+
+
+%\strut
+
+%\pagebreak%
+
+\clearpage
+
+\doublespacing
+
+\input{01_Introduction}
+
+\input{02_TS_background}
+
+\input{03_TESS_standard_design}
+
+\input{04_TESS_HCE}
+
+\input{05_Challenges}
+
+\input{06_Conclusions}
+
+\pagebreak
+
+%%%%%%%%%%%%%References%%%%%%%%%%%%%
+\singlespacing
+\newpage
+\bibliographystyle{aea}
+\bibliography{reference}
+\clearpage
+
+
+\end{document}

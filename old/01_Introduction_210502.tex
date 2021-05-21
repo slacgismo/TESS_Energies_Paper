@@ -1,0 +1,70 @@
+\section{Introduction}
+
+\textcolor{red}{Describe motivation for TS and cite existing work. Pilots show that it generally works well: better dispatch, increased load flexibility, congestion management. But: requires fundamental changes to way of operations which utilities cannot or do not want to implement right away. `How can we integrate TS with existing tariff systems?' reason: utilities don't want (too `risky') or cannot (bec net-metering is a federal policy) change to TS exclusively. We show that for a field experiment currently running at HCE/Colorado.}
+
+\textcolor{blue}{PRICE DISCOVERY}
+
+Purpose, mechanics, and advantages of TS
+
+growing field of TE reflects a range of definitions and concepts, cost-based prices to devices from a system/utility perspective CITE SOME OF THIS LITERATURE
+
+Transactive energy systems use market processes and automated device bidding to coordinate supply and demand and provide devices with control signals using price-based dispatch. Our definition differs from the cost-based prices to devices concept by including demand-side bidding based on willingness to pay -- eliciting prices from devices to reflect demand-side value more directly in the market-clearing prices used for dispatch.
+
+As the share of renewable resources grows, the marginal cost of energy resources tends to zero, and the long term average cost of energy is increasingly dominated by cost of flexibility resources, and the cost of associated capacity. Nearly all the existing work on Transactive Energy Systems is based on the retail analogy to wholesale energy markets, which are fundamentally designed around marginal cost pricing of energy resources (and constraints on associated capacity), not on the cost of other grid services. The goal of the Transactive Energy Service System (TESS) project to design, develop, test, and validate retail-level Transactive Energy systems that are dominated by behind-the-meter renewable energy resources and energy storage resources.
+
+SUMMARIZE TESS 1.0 AND GIVE ROADMAP FOR THIS PAPER
+
+\subsection{Transactive Energy Background} 
+
+Transactive energy was originally conceived of as \emph{transactive control} to address the problem of integrating large numbers of small resources optimally into electric power system operations (TE 1.0). Transactive control provided a mechanism at the retail level, without requiring large amounts of potentially private information about those resources' supply and demand functions, such as would be required for a formal numerical optimization solution.  This problem became more prominent as utilities struggled to integrate a growing variety of behind-the-meter energy resources, including demand response, photovoltaics, electrification, and energy storage into their system operations using conventional utility programs such as energy efficiency and demand-side-management. TE 1.0 implements the ``prices to devices" concept by pushing a cost-based price signal to devices, observing the response, and changing the price signal iteratively to bring quantity supplied and quantity demanded into equilibrium (a process economists will recognize as Walrasian \emph{tat\^{o}nnement}). This utility-generated price signal tends to be cost-based and supply-focused, reflecting demand only to the extent that devices respond iteratively, with an objective function of achieving a particular system control objective.
+
+The transactive energy market design developed for the GridWise Olympic Peninsula Testbed Demonstration Project \citep{hammerstrom_2008} moved beyond TE 1.0 by relying on a double clock auction to clear a real-time market and provide a price signal for automated device demand response and dispatch. In a double clock auction buyers and sellers submit bids and offers simultaneously in a specified market time interval. The ability to automate device participation in such markets reduces transaction costs, elicits information about relative value and relative cost from users around the distribution edge, and makes autonomous price-based dispatch feasible. This market design becomes the foundation for TE 2.0, where the decentralized bid-based and offer-based market changes the paradigm to ``prices from devices" to establish a market-clearing price that is then used for prioritization and dispatch. This TE 2.0 paradigm is more adaptable to unknown and changing conditions and better enables flexibility in the face of uncertainty at varying scales and time frames \citep{chassin_kiesling_2008}.
+
+SUMMARIZE SUBSEQUENT TE WORK AND LITERATURE
+
+\subsection{Transactive Energy Economic Theory}
+
+Transactive energy synthesizes the technologies and control theory from engineering with the market design and institutional theory from economics into a cyber-physical-social system. Digital technologies create the possibility of energy devices changing their settings autonomously in response to prices, and control theory provides a framework for modeling, testing, and understanding the individual and system effects of such capabilities. Here we fill a gap in the literature by describing the multiple fields in economic theory underlying the transactive energy concept: price theory, institutional and organizational economics, auction theory, and mechanism design.\footnote{Experimental economics is also essential in transactive energy for designing the testing of TS designs in the field.}
+
+The foundation of transactive energy economics is price theory, DEFINE (CITE WEYL, MULLIGAN), theory of markets. An essential feature of the economics of transactive energy is that people are individually distinct, with personal, subjective preferences over the goods and services they consume. As producers their perceptions of the opportunity costs they face are also subjective. Subjectivism is an important element of economic models because it reflects how private and personal preferences and opportunity costs are. Neoclassical price theory assumes full information to make models more tractable, but that makes models less useful.
+
+They are also not knowable by or accessible to others, so coordination requires some mechanism that gives people incentives to communicate some of that subjective, private knowledge. That mechanism is the price system. A price system operating within a clear set of rules provides a decentralized mechanism for gathering information and learning about these preferences and opportunity costs, even among strangers (or their devices). The market process of mutual learning and decision-making enables prices to emerge that coordinate the actions and plans of all users of the system, incorporating both supply and demand information into that emergent price.
+
+Effective price systems and market institutions can be challenging, or can fail to exist, due to transaction costs. When transaction costs are high and market transactions are costly to employ for coordination, other methods of organizing economic activity emerge, such as vertical integration. Technological change, most recently digitization and automation, have reduced transaction costs of using the price system relative to these other institutions \citep{kiesling_2016}. IOE, CITE SOURCES
+
+All price systems operate in an institutional framework, a set of rules, and the rules shape the incentives of participants. Certain types of market rules have emerged over millennia (bilateral negotiation, auctions, take it or leave it pricing), and can also be designed specifically for a particular context, based on these emergent institutions.
+
+TRANSITION
+
+Auctions are useful aspects of market design when the allocation problem is characterized by asymmetric information. In the case of electricity market design, the object for sale has different, subjective value to each potential bidder, a case known as a private value auction model. Each bidder knows how much she values the object, but that knowledge is known only to her. The market mechanism is designed to elicit bids that reveal some of that private information; for example, in an English auction, as the bids increase bidders with lower private values drop out of the bidding, revealing their lower valuations.
+
+By the 1980s auction theory intersected with mechanism design (discussed below), and auction models moved to treating a bidder’s value as her type. For example, an auction selling one object involves n bidders with each bidder having a type $\theta_i, i=1,...,n$. That type reflects bidder i’s value $v_i(\theta_i)$, which is her utility level of the object. Thus she is willing to bid an amount up to her value, and with n different types and values the bidders can be ordered. Private value means that each bidder knows only her own type. By submitting bids and participating in the auction process, a bidder reveals some information about her type (although does not reveal her exact type unless she bids $v_i$).
+
+An auction model with high relevance to transactive energy is the double auction (DA). A double auction treats buyers and sellers symmetrically, enabling them to make simultaneous bids and offers. The environment is assumed to be private value, and the auction can be for a single unit or multiple units of the same object. In a static DA, buyers submit bid schedules and sellers submit offer schedules of price and quantity \citep{friedman1993double}. The centralized auction platform performs a clearinghouse function, arranging all of the buyers’ schedules into a market demand curve and all of the sellers’ schedules into a market supply curve. This market process enables a market price to emerge, determining quantity supplied and quantity demanded and clearing the market. Experimental analysis suggests that the dynamic DA is a very efficient market design, even in the presence of fragmented, private knowledge, where each participant knows only her own value/opportunity cost \citep{easley1993theories}.
+
+Mechanism design is a game-theoretic approach to examining situations in which individuals make decisions and interact when they have private knowledge that could affect the decisions they make and the ultimate outcomes. Each agent in a system has a unique and private input into achieving a shared objective, and a mechanism is an institution for achieving that objective by aligning the individual and shared incentives across all agents in the system. 
+
+Decentralized mechanisms are formal representations of systems for coordinating economic activity. In many economic contexts, elicitation of some of that private knowledge is important for value/surplus creation, both individually and socially. A decentralized mechanism elicits some of that knowledge, which then becomes information. The type of decentralization that mechanism design emphasizes is informational decentralization – individuals have private knowledge, and sharing some of that information is part of the process of production, consumption, and/or exchange. Although the mechanism is itself decentralized, mechanism design presupposes a shared objective.
+
+Formally, individuals have types $\theta_i$ and preferences that are a function of type $v_i(\theta_i)$, for all individuals $i=1...n$. These types and preferences are private knowledge, as described in the market process theory discussion above. They are also assumed to be monotonic, so that individuals can be ranked or ordered according to type. 
+
+A mechanism turns individual messages $m_i$ into outcomes $g_i$, given individual types, valuations of outcomes given types ($v_i(g_i(\theta_i))$), and environments in which the mechanism operates. Depending on the type of mechanism it may involve a transfer payment $t_i$ from one type of agent to another (the transfer amount can be positive or negative).
+
+Mechanism design focuses on eliciting truthful revelation of some information about that private knowledge/type. Agents may have incentives to misrepresent their preferences (for example, a buyer understating value to lower price, a seller overstating cost to raise price, or a community member understating value of a public project and engaging in “free riding”). Depending on the environment and the objective function of the principal, different mechanisms can perform better or worse at truthful revelation.
+
+The general structure of mechanism design is to maximize some objective function across all n individuals subject to two constraints: incentive compatibility (IC) and individual rationality or participation (IR). The objective function varies depending on the specific context, but represents profit, surplus, or welfare maximization. The IC constraint ensures that each agent is better off truthfully revealing type in the outcome from the chosen mechanism compared to other alternative outcomes. The IR constraint ensures that each agent is better off participating in the system than not participating. Formally:
+
+\begin{center}
+IC: 	$v_i(g^*_i(\theta_i,t_i(\hteta_i)) \geq v_i(g_i(\theta_i,t_i(\theta_i)) \qquad \forall i,g$
+
+IR:	    $v_i(g^*_i(\theta_i,t_i(\theta_i)) \geq 0$
+\end{center}
+
+Different mechanisms have other different benefits and costs to be weighed in a comparative institutional analysis. Benefits are ability to generate surplus and align individual welfare and aggregate or social welfare. Costs are resource costs, information costs, computational costs, and enforcement costs. Practical mechanisms that can be implemented are hard to identify, and testing such mechanisms is an essential step in overall market design. Experimental economics provides a framework for performing such market design tests.
+
+\cite{kiesling_2021}
+
+WHAT IS THE ORIGINAL ASPECT OF OUR DESIGN THAT DRAWS ON THIS ECONOMIC THEORY?
+
+
+
