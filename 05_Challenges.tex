@@ -4,7 +4,7 @@ In the following section, we summarize the general setup of the TESS system at H
 
 \subsection{General Setup}\label{sec:hce_market_setup}
 
-We specify the technical setup of TESS as described in \cref{sec:technical_setup} to largely implement the standard design of the TS. All participating homes are represented by home hubs that bid on behalf of the customers \citep{powernet2021}. In terms of DER, we include photovoltaics, electric vehicle charging, and electric storage. Each participating device is further connected to a controller that can provide relevant physical information (such as current solar generation or the state-of-charge of electric storage) to the home hub for the purpose of bidding and implement the subsequent market allocation. Every five minutes, the home hubs send bids to the market operator. In addition, in the roles of the retailer and grid operator, HCE provides information on the supply cost, available import capacity, and unresponsive load. Bids are then cleared in a centralized double auction. 
+In the HCE environment we use the technical setup of TESS as described in \cref{sec:technical_setup} to implement much of the standard design of the TS. All participating homes are represented by home hubs that bid on behalf of the customers \citep{powernet2021}. In terms of DER, we include photovoltaics, electric vehicle charging, and electric storage. Each participating device is further connected to a controller that can provide relevant physical information (such as current solar generation or the state-of-charge of electric storage) to the home hub for the purpose of bidding and implement the subsequent market allocation. Every five minutes, the home hubs send bids to the market operator. In addition, in the roles of the retailer and grid operator, HCE provides information on the supply cost, available import capacity, and unresponsive load. Bids are then cleared in a centralized double auction. 
 
 The market result is characterized by an equilibrium price and the share of the marginal bid (`mode'). The latter equals 1 if the marginal bid (i.e. the bid(s) that determine the market price) can be fully cleared and is between 0 and 1 if that is not the case. For instance, if solar systems are generating more than can be exported, the bid will only partially clear and solar systems must reduce their generation to, for instance, 80\%.
 
@@ -19,7 +19,7 @@ All agents are implemented on the cloud and values (measurements, bids, market r
 As HCE is a member-owned electric cooperative, they do not require approval by the relevant utility commission to change and adjust their tariffs. However, the management is responsible to their members and, in general, any substantial tariff changes increase the complexity of the underlying process, including metering, accounting, and billing. 
 
 In some previous TS designs, participants were subscribed to a distinct transactive tariff (e.g. \citet{Widergren2014}).
-We think, however, that a well-designed integration of the TS into the existing tariff system facilitates the deployment of TS in real-world settings. Specifically, we propose to leverage HCE's existing tariff Distribution Flexibility Program (DFP). Under the current design of the DFP, customers grant control over their DERs to HCE and, in return, receive a bill credit. This bill credit is calculated based on the type and number of DERs included into the program as well as their performance. TESS would replace the current mechanism of controlling DERs and determining the applicable bill credit: instead of the current HCE control, DER dispatch would now be price-based, determined through the TS. Also, the applicable bill credit would be determined based on the payments received by the TS. As such, TESS could be seen as a specification of operating the Distribution Flexibility Program, fitting TESS neatly into the existing tariff system and avoiding the creation of new tariff categories.
+We think, however, that a well-designed integration of the TS into the existing tariff system facilitates the deployment of TS in real-world settings. Specifically, we propose to leverage HCE's existing tariff Distribution Flexibility Program (DFP). Under the current design of the DFP, customers grant control over their DER to HCE and, in return, receive a bill credit. This bill credit is based on the type and number of DER included into the program and their performance. TESS would replace the current mechanism of controlling DERs and determining the applicable bill credit: instead of the current HCE control, DER dispatch would now be price-based, determined through the TS. Also, the applicable bill credit would be based on the payments received by the TS. As such, TESS could be seen as a specification of operating the Distribution Flexibility Program, fitting TESS neatly into the existing tariff system and avoiding the creation of new tariff categories.
 Other tariffs, in particular the fixed retail rate and net metering, remain active, and DER owners can be on multiple rates simultaneously. 
 
 We illustrate the stacking of tariffs with the following example. A customer pays a fixed retail rate on his electricity consumption during the billing period. 
@@ -36,39 +36,66 @@ First, while side payments are possible in an experimental context, they are a m
 Second, if outside options were not incorporated into bidding with an open system, the implemented bidding strategies would be sub-optimal for the customer, i.e. the system would not be incentive compatible, and customers would either override or leave the TS. Moreover, customers would switch to third parties such as load aggregators, which could then arbitrage between the existing tariff and the TS, resulting in a sub-optimal equilibrium.
 Designing incentive-compatible bidding functions is therefore a crucial requirement to improve consumer welfare and open up the system to other stakeholders, such as manufacturers of smart home systems and devices or load aggregators.
 
-To demonstrate the general approach of economic bidding with outside options, we focus on photovoltaics.
-Given net metering, any additional kWh generated decreases the customer's bill by the retail rate.\footnote{Under net metering, the marginal value of export and the marginal value of consumption are identical and, under normal conditions, equal the fixed retail rate.}
-The customer will therefore generally generate the maximum electricity possible which is exogenous given weather conditions and installed capacity.
-While the customer cannot increase generation, the customer could, of course, disconnect the system or decrease infeed, but he does not have any incentive to do so as that would imply missing out on substantial bill reductions, as described earlier. 
+To demonstrate the general approach of economic bidding with outside options, we focus on photovoltaics (PV).
+Given net metering, any additional kWh generated decreases the customer's monthly bill $C$ by the retail rate $RR$.\footnote{Under net metering, the marginal value of export and the marginal value of consumption are identical and, under normal conditions, equal the fixed retail rate.} The cost-minimizing customer therefore faces the following objective function,
+
+\begin{align}
+    \min_\mathbf{q} C &= (\sum_t q^d_t - \sum_t q^s_t) RR \\
+    \& s.t. q^{PV}_t \leq \overline{q}^{PV}_t, \forall t \nonumber
+\end{align}
+
+To minimize the bill, the customer will therefore generally generate the maximum electricity $q^{PV}_t = \overline{q}^{PV}_t$ possible, which is exogenous given weather conditions and installed capacity.
+While the customer cannot increase generation, the customer could, of course, disconnect the system or decrease infeed below the technical limit $q^{PV}_t < \overline{q}^{PV}_t$, but he does not have any incentive to do so as that would imply missing out on substantial bill reductions, as described earlier. 
 Therefore, customers with solar panels follow the rationale to use and/or export any electricity that the panel is generating.
 
-The customer can, however, provide flexibility to the system by decreasing solar generation or increasing net load at the rate of current production -- if that is sufficiently rewarded. 
+The customer can, however, provide flexibility within the DFP program by decreasing solar generation or increasing net load at the rate of current production and receive a dispatch-dependent flexibility payment for participation. In that case, the new cost function is defined as follows,
+
+\begin{align}
+    C^{DFP} &= (\sum_t q^d_t - \sum_t q^s_t) RR - B(\mathbf{q}).
+\end{align}
+
+Curtailment would result in an increase of the bill by the fixed retail rate for each kWh not generated because of the curtailment. However, the customer is willing to provide this flexibility if compensated for the loss, i.e. if,
+
+\begin{align}
+    \frac{d B(\mathbf{q}^{PV})}{d q^{PV}_t} > RR .
+\end{align}
+
 The combination of the PV technology behavior and the NEM rate describes the baseline against which the customer will evaluate any changes he makes to his behavior.
-Curtailment would result in an increase of his bill by the fixed retail rate for each kWh not generated because of the curtailment. The individual participation constraint therefore requires the customer to receive at least the retail rate. Therefore, the customer would place a bid in the TS to reduce supply (or increase net load) at the minimum price of the retail rate $RR$  (price bid).
-The amount of possible flexibility would correspond to the current solar infeed $q_{PV}$ because, at best, the customer could fully shut down his solar generation (quantity bid). Conversely, the customer is not able to offer any negative baseline reductions, i.e. increase solar generation. \cref{fig:lem_adjustment_normal} illustrates this baseline effect.
+The individual participation constraint therefore requires the customer to receive at least the retail rate as a compensation. Therefore, the customer would place a bid in the TS to reduce supply (or increase net load) at the minimum price of the retail rate $RR$  (price bid).
+The amount of possible flexibility would correspond to the current solar infeed $\overline{q}^{PV}_t$ because, at best, the customer could fully shut down his solar generation (quantity bid). Conversely, the customer is not able to offer any negative baseline reductions, i.e. increase solar generation. \cref{fig:lem_adjustment_normal} illustrates this baseline effect.
+Given this bidding strategy, the customer would accumulate a bill credit $B(\mathbf{q})$ which compensates the customer for the losses experienced from solar curtailment.
 
 \begin{figure}[t]\label{fig:baseline}
   \begin{subfigure}[t]{0.485\linewidth}
-    \centering\includegraphics[height=3.2cm]{Market_power_adjustment_normal_2.png}
+    \centering\includegraphics[height=3.2cm]{Market_power_normal_3.png}
     \caption{Market under normal supply conditions}
     \label{fig:lem_adjustment_normal}
   \end{subfigure}\hspace{0.5cm}
   \begin{subfigure}[t]{.485\linewidth}
-    \centering\includegraphics[height=3.2cm]{Market_power_adjustment_2.png}
+    \centering\includegraphics[height=3.2cm]{Market_power_adjustment_3.png}
     \caption{Market under requirement to increase net load} 
     \label{fig:lem_adjustment}
   \end{subfigure}
 \caption{Market for power adjustment (compared to baseline)}
 \end{figure}
 
-Under normal conditions, of course, HCE would not be willing to pay a customer the retail rate to reduce generation. Instead, it would be willing to sell additional generation at its long-term marginal supply cost $MC$ (and even take a price less than the fixed retail rate). On the other hand, it would be only willing to reduce supply from the baseline scenario if paid the foregone profit, i.e. the difference between the retail rate and the marginal cost. The bids provided by HCE and consumers are illustrated in \cref{fig:lem_adjustment_normal}. The curves do not intersect and the market allocation is empty.
+We further analyze the bidding behavior of HCE. HCE is a cooperative and follows a complex combination of objectives, including commitments to resilience and energy supply sustainability. To derive the optimal bidding strategy, we abstract from that complexity and model HCE as a profit-maximizing entity, as many of those objectives are incorporated in their long-term investment and procurement decisions. Furthermore, with our focus on PV, this essentially translates into a cost-minimization problem. The decision variable is HCE's bidding strategy through which they can influence demand and supply participating in the TS,
 
-A situation is possible, however, during which HCE would want to decrease generation within its distribution grid or, equivalently, increase net load. Such a situation could arise when there is an abundance of renewable energy in the grid. Then, the entity operating the overlying grid could be willing to pay a critical peak rate $CPR$ to HCE for net load increases, or, alternatively, HCE would need to curtail renewable energy within its system and pay them a compensation of $CPR$. In that case, the HCE bid changes and it would be willing to sell at a negative price, $MC - CPR$, i.e. pay consumers to consume more. Further decreasing supplies would be even more costly for the marginal unit, as HCE would miss out on sales at the fixed retail rate. 
-The bids provided by HCE and consumers are illustrated in \cref{fig:lem_adjustment}. Now, supply and demand adjustments intersect at a quantity of $q_{PV}$ and the clearing price $p$ would be determined between $p \in [MC - CPR, -RR]$. Because the price is negative, the cashflow reverses and buyers get paid, while the seller pays.
+\begin{align}
+    \max \pi_\mathbf{b} &= \sum_t [\sum_{ij} (q^d_{ijt}(\mathbf{b}) -  q^s_{ijt}(\mathbf{b})) RR - MC_t q^{WS}_t + peak_t CPR_t |q^{WS}_t - \overline{q}^{WS}_t| ] + T(\mathbf{b}) \nonumber \\
+    & s.t. \sum_{ij} q^d_{ijt}(\mathbf{b}) =  \sum_{ij} q^s_{ijt}(\mathbf{b}) + q^{WS}_t
+\end{align}
+
+The objective function includes income from net retail sales and the cost of energy procurement. The latter depend on the occurrence of a peak event, with $peak_t \in \{0;1\}$. Finally, the objective function includes the income of operating the transactive system. 
+
+Under normal conditions ($peak_t = 0$), of course, HCE would not be willing to pay a customer the retail rate to reduce generation. Instead, it would sell additional generation at its long-term marginal supply cost $MC_t$ (and even take a price less than the fixed retail rate). On the other hand, it would be only willing to reduce supply from the baseline scenario if paid the foregone profit, i.e. the difference between the retail rate and the marginal cost. The bids provided by HCE and consumers are illustrated in \cref{fig:lem_adjustment_normal}. The curves do not intersect and the market allocation is empty.
+
+A situation is possible, however, during which HCE would want to decrease generation within its distribution grid or, equivalently, increase net load to a level of $\overline{q}^{WS}_t$. Such a peak event ($peak_t = 1$) could arise when there is an abundance of renewable energy in the grid. Then, the entity operating the overlying grid could be willing to pay a critical peak rate $CPR$ to HCE for net load increases. Alternatively, HCE would need to curtail renewable energy within its system and pay them a compensation of $CPR$. In that case, the HCE bid changes and it would be willing to sell at a negative price, $MC_t - CPR$, i.e. pay consumers to consume more. Further decreasing supplies would be even more costly for the marginal unit, as HCE would miss out on sales at the fixed retail rate. 
+The bids provided by HCE and consumers are illustrated in \cref{fig:lem_adjustment}. Now, supply and demand adjustments intersect at a quantity of $q^{PV}_t$ and the clearing price $p_t$ would be determined between $p \in [MC_t - CPR, -RR]$. Because the price is negative, the cash flow reverses and buyers get paid, while the seller pays.
 
 Importantly, given the outside options of customers (in particular net metering), our design of the TS does not trade energy or power, but rather the deviation from this baseline generation or consumption. Thus the clearing price on the market reflects the price of \textbf{deviating} from the baseline. As a result, bids must reflect the quantity by which customers would be willing to deviate from the baseline and at what price. 
 
-\cref{fig:pv_profile} illustrates the resulting implementation of the market result for a single customer with a solar system. For demonstration purposes, solar generation is approximated as a continuous normal distribution function. Generation starts in the early morning hours, reaches its maximum around noon, and terminates after sunset. The home hub, on behalf of the controller, continuously provides bids for increasing net load/reducing generation at the respective current generation $q_{PV}$, according to the described bidding strategy. Now assume that an adverse event occurs at 1pm, the market is cleared, and the solar system is shut down. In that case, solar generation is reduced to zero. In the subsequent market interval, no current (counterfactual) generation is available. For the implementation at HCE that relies on deviation from a baseline, we therefore approximate the available load reduction (i.e. to keep the solar system curtailed) using the most recent measurement. Therefore, the reduction for which the customer is eventually paid at settlement, corresponds to the red straight line of counterfactual generation during the adverse event. Once the situation dissolves, the market does not clear anymore and the solar system goes back online.
+\cref{fig:pv_profile} illustrates the resulting implementation of the market result for a single customer with a solar system. For demonstration purposes, solar generation is approximated as a continuous normal distribution function. Generation starts in the early morning hours, reaches its maximum around noon, and terminates after sunset. The home hub, on behalf of the controller, continuously provides bids for increasing net load/reducing generation at the respective current generation $q^{PV}$, according to the described bidding strategy. Now assume that an adverse event occurs at 1pm, the market is cleared, and the solar system is shut down. In that case, solar generation is reduced to zero. In the subsequent market interval, no current (counterfactual) generation is available. For the implementation at HCE that relies on deviation from a baseline, we therefore approximate the available load reduction (i.e. to keep the solar system curtailed) using the most recent measurement. Therefore, the reduction for which the customer is eventually paid at settlement, corresponds to the red straight line of counterfactual generation during the adverse event. Once the situation dissolves, the market does not clear anymore and the solar system goes back online.
 
 \begin{figure}[t]
 \centering
