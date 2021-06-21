@@ -40,6 +40,26 @@
 
 \usepackage{caption}
 
+\usepackage{flushend}
+\usepackage{graphics}
+\usepackage[all]{xy}
+\usepackage{tikz}
+
+\usepackage{titling}
+\thanksmarkseries{arabic}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhf{}
+\usepackage{lastpage}
+
+%%%%%%%%
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%%%%%%%%
+
 \setcounter{MaxMatrixCols}{30}
 \newtheorem{theorem}{Theorem}
 \newtheorem{fact}{Fact}
@@ -55,11 +75,10 @@
 \def\@biblabel#1{\hspace*{-\labelsep}}
 \makeatother
 \geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+
 \begin{document}
 
 \setcounter{page}{0}
-
-
 
 \singlespacing
 
@@ -70,7 +89,7 @@ Opening up Transactive Systems: Introducing TESS and Specification in a Field De
 \\ }
 
 \date{\today}
-\author{Marie-Louise Arlt (Ludwig Maximilians University Munich) \\ David P. Chassin (SLAC National Accelerator Laboratory\footnote{SLAC National Accelerator Laboratory is operated by Stanford University for the US Department of Energy under Contract DE-AC02-76SF00515. This work was funded under a grant from the US Department of Energy's Office of Electricity and completed in a collaboration with Holy Cross Energy Electric Cooperative in Glenwood Springs, Colorado and PostRoad Foundation in Oakland, California.} ) \\ Lynne Kiesling (University of Colorado-Denver) \\}  
+\author{Marie-Louise Arlt (Ludwig Maximilians University Munich) \\ David P. Chassin (SLAC National Accelerator Laboratory\footnote{SLAC National Accelerator Laboratory is operated by Stanford University for the US Department of Energy under Contract DE-AC02-76SF00515. This work was funded under a grant from the US Department of Energy's Office of Electricity and completed in a collaboration with Holy Cross Energy Electric Cooperative in Glenwood Springs, Colorado and PostRoad Foundation in Oakland, California.} ) \\ L. Lynne Kiesling (University of Colorado-Denver) \\}  
 \maketitle
 
 \thispagestyle{empty}

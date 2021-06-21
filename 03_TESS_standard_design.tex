@@ -1,24 +1,34 @@
 \section{TESS Standard Design}\label{sec:standard_design}
 
 In this section, we discuss which design requirements future TS need to address to integrate high levels of DER and prepare the path to a true, market-based smart grid.
-We are designing the Transactive Energy Service System (TESS) platform to enable the implementation of these functionalities.
-Specifically, they include all those found in the original Olympic demonstration, as well as (1) a standardized platform that reveals the full extent of demand-side and DER flexibility, (2) economically founded bidding functions, (3) a real-time market operation capable of operating concurrently at multiple time-scales, and (4) a flexible settlement mechanism. The following sections will detail each design requirement.
+We are designing the TESS platform to enable implementation of these capabilities.
+Specifically, TESS design requirements include all those found in the original Olympic demonstration, as well as (1) a standardized platform that reveals the full extent of demand-side and DER flexibility, (2) economically founded bidding functions, (3) a real-time market operation capable of operating concurrently at multiple time-scales, and (4) a flexible settlement mechanism. The following sections will detail each design requirement.
 
-As a platform for implementing TS, the TESS modules described here are only part of a whole-of-operation approach that addresses the full life cycle of a TS deployment with the objective to integrate distributed energy resources into the utility operation.  
+\input{fig_TESS_program_elements}
+
+As a platform for implementing TS, the TESS modules described here are only part of a whole-of-operation approach that addresses the full life cycle of a TS deployment with an objective of integrating DER into the utility operation.  
 More broadly, TESS is designed to include program development tools such as screening, financing, and engineering software, deployment tools such as participant identification, recruitment, enrollment, and bootstrapping products, as well as system operations tools such as wholesale, distribution, and settlement products to give the utility all the resources needed to successfully implement a TS.
-This approach will allow many different kinds of utility operations to be supported using the same system infrastructure, significantly reducing the barriers to adoption and the cost of deployment of TS. 
+This approach will allow different kinds of utility operations to be supported using the same system infrastructure, significantly reducing the barriers to adoption and the cost of deployment of TS. 
+\cref{fig:tess_program_elements} illustrates the different program components.
 
 \subsection{Technical Setup of Market Operations}\label{sec:technical_setup}
 
-The code and documentation of TESS are available at \url{https://github.com/slacgismo/TESS}. The current setup reflects the specification of TESS for our field deployment in Colorado, as described in the following \cref{sec:hce}.
+The code and documentation of TESS are available at \url{https://github.com/slacgismo/TESS}. The current setup reflects the specification of TESS for our field deployment in Colorado, as described in \cref{sec:hce}.
 
-Each customer has a home hub that manages the settings and actions of its devices on the customer's behalf. At each market interval, the relevant physical state information is measured by the meter or other relevant sensors and written to the TESS database on the cloud.
-Based on this information, the agents representing the home hubs on the cloud update their physical states and form dispatch bids, i.e., how much they are willing to pay for consumption or the minimum price for supply. 
-The agent representing the retailer submits wholesale market supply, with the price bid corresponding to the cost of supply and the quantity bid to the import capacity. This coordination with wholesale operations is essential to ensuring that the utility is maximizing its utilization of the wholesale agreements it has in place.
-Shortly before the beginning of the market interval, the market operator agent collects all bids and determines the market result by constructing market demand and supply for that interval. 
+Each customer $i$ has a home hub $HH_i$ that manages the settings and actions of its devices $\mathcal{J}$ on the customer's behalf. At each market interval, the relevant physical state information $\mathcal{S}_{ijt}$ is measured by the meter or other relevant sensors and written to the TESS database on the cloud.
+Based on this information, the agents representing the home hubs on the cloud update their physical states and form dispatch bids $b(\mathcal{S}_{ijt})$, i.e., how much they are willing to pay for consumption $b^d_{ijt}$ or the minimum price for supply $b^s_{ijt}$. 
+The agent representing the retailer submits wholesale market supply, with the price bid $b^s_{WS}$ corresponding to the cost of supply $c^{WS}$ and the quantity bid to the import capacity. This coordination with wholesale operations is essential to ensuring that the utility is maximizing its utilization of the wholesale agreements it has in place.
+Shortly before the beginning of the market interval, the market operator agent collects all bids and determines the market result by constructing market demand $D(p)$ and supply curves $S(p)$ for that interval. 
 
-The market is cleared in a welfare-maximizing way, where quantity supplied equals quantity demanded. The result is characterized by an equilibrium price and quantity.
-After market clearing, home hubs compare their devices' bids to the equilibrium price. If the bid price is equal to or exceeds the equilibrium price (for demand) or is less (for supply), the bid was cleared. 
+The market is cleared in a welfare-maximizing way, where quantity supplied equals quantity demanded. 
+
+\begin{equation}
+    {p_t} = & \argmax \sum_D (b^{d}_{ijt} - p_t) q^{d}_{ijt}(p_t) - \sum_S (p_t - b^{s}_{ijt}) q^{s}_{ijt}(p_t) \\ 
+    &\text{s.t.} D(p_t) = S(p_t)
+\end{equation}{}
+
+The result is characterized by an equilibrium price $p_t$ and quantity $q_t = D(p_t) = S(p_t) $.
+After market clearing, home hubs compare their devices' bids to the equilibrium price. If the bid price is equal to or exceeds the equilibrium price $b^d_{ijt} \geq p_t$ (for demand) or is less $b^s_{ijt} \leq p_t$ (for supply), the bid was cleared and the device is dispatched. 
 
 All agents are implemented on the cloud and values (measurements, bids, market results) are stored in the TESS database.
 
@@ -50,7 +60,7 @@ Such a design meant that the bids submitted potentially do not reflect the actua
 The high degree of automation not only ensured strong demand response resource participation, but also protected against strategic bidding practices that could undermine the design objectives of the mechanism.
 Nevertheless, the system designers recognized that ultimately the bidding strategies are the most important part of the system and the design, and selection of these strategies was a task ideally left to the device manufacturers and consumers in a decentralized system.
 
-The TESS design brings this notion to full realization by allowing devices (through device manufacturers and third-party agent developers) to implement their own bidding strategies, and giving consumers more direct control over the settings that govern those strategies. For example, consumers can control their battery storage resource strategy by changing the preferred energy reserve (given their preference for resilience) and its sensitivity to price fluctuations (given their risk aversion).  Similarly, electric vehicles can be configured to charge more aggressively, ignoring prices fluctuations, or more economically by charging only when the price is low (\cite{behboodi2016electric}). 
+The TESS design brings this notion to full realization by allowing device manufacturers and third-party agent developers to implement their own bidding strategies, allowing devices to have customized bidding functions and giving consumers more direct control over the settings that govern those strategies. For example, consumers can control their battery storage resource strategy by changing the preferred energy reserve (given their preference for resilience) and its sensitivity to price fluctuations (given their risk aversion). Similarly, electric vehicles can be configured to charge more aggressively, ignoring prices fluctuations, or more economically by charging only when the price is low (\cite{behboodi_electric_2016}). 
 
 Bid function heterogeneity is another important and distinctive feature of TESS that improves price stability, and is likely to make it more difficult for one type of device or vendor to exercise any kind of market power.
 The TESS design also anticipates the emergence of AI bidding agents, where learning and forecasting functionalities are included. This development is expected to bring additional diversity in the bidding strategies and add to the overall resilience and stability of the TS by avoiding many adverse ``flocking'' behaviors and resulting price volatility observed in the previously demonstrated TS.
@@ -67,7 +77,7 @@ TESS completes the settlement process in two steps. First, all the transactions 
 In addition, TESS proposes a token-based settlement systems which also permits the use of new digital or crypto-currencies, if desired.
 For instance, a certain number of tokens could be issued each month by the utility based on the expected value of the total welfare surplus from operations. Customers then participate in the transactive system using these tokens, so their token balances reflect their decisions and actions. At the end of the month the total surplus is calculated and used to assign a value to the tokens. Each participant is then compensated according to how many tokens they hold and their individual bill credits awarded accordingly. This approach uses cooperative game theory concepts about dividing a co-created benefit, and develops an indirect approach to performing a Shapley value calculation to implement that allocation.
 
-There are multiple advantages of the token-based approach. 
+The token-based approach has multiple advantages. 
 First, the utility is not committed to compensating consumers more than the total net benefit arising from their collective behavior. In particular, if consumers exhibit a short-term behavior that is highly profitable to them but has a longer-term negative system impact, this will be revealed in reduced token values and diminish the strength of the near-term incentives relative to the long-term benefits.  
 Second, the calculation methods ensure that all parties are compensated fairly for their marginal contributions to the total net benefit, i.e., a consumer whose actions increased the total surplus greater will see a larger reward than one whose actions were detrimental. Actions that are both individually and collectively beneficial are rewarded the most, and ones harmful to both are rewarded the least, while those that only benefit one or the other are rewarded somewhere in between.  
 Finally, the use of tokens might open up new opportunities. For instance, customers could receive tokens for other activities which are beneficial for the system, such as sharing data or for certain energy efficiency investments.
